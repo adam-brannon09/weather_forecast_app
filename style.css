@@ -1,0 +1,35 @@
+header {
+	text-align: center;
+	height: 75px;
+	color: white;
+   
+}
+
+.container-fluid {
+	display: grid;
+	grid-template-columns: 25% 75%;
+	border: 1px solid black;
+}
+
+aside {
+	margin-top: 5px;
+	margin-left: 10px;
+}
+input {
+	width: 250px;
+}
+button {
+	width: 250px;
+	margin-top: 25px;
+}
+
+hr {
+	width: 250px;
+}
+
+#current-location {
+	width: 850px;
+	height: 200px;
+	background-color: aquamarine;
+    border: 1px solid black;
+}
