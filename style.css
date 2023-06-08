@@ -1,35 +1,26 @@
-header {
+nav{
+	height: 150px;
+	
+}
+
+
+.btn-large{
+	width: 350px;
+}
+
+#current_conditions{
+	/* background-color: lightgray; */
+	height: 300px;
+	border: solid gray 1px;
+}
+
+#five_day_container{
+	/* background-color: gray; */
+	height: 300px;
+	width: 1100px;
+	border: solid gray 1px;
 	text-align: center;
-	height: 75px;
-	color: white;
-   
 }
-
-.container-fluid {
-	display: grid;
-	grid-template-columns: 25% 75%;
-	border: 1px solid black;
-}
-
-aside {
-	margin-top: 5px;
-	margin-left: 10px;
-}
-input {
-	width: 250px;
-}
-button {
-	width: 250px;
-	margin-top: 25px;
-}
-
-hr {
-	width: 250px;
-}
-
-#current-location {
-	width: 850px;
-	height: 200px;
-	background-color: aquamarine;
-    border: 1px solid black;
+h4{
+	
 }
