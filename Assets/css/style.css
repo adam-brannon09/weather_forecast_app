@@ -1,0 +1,16 @@
+h1{
+   margin-top: 0;
+}
+label{
+    font-size: 1rem;
+}
+
+
+#current-forecast-container{
+    background-color: lightblue;
+    width: 900px;
+    height: auto;
+    
+    
+}
+
