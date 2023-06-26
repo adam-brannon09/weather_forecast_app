@@ -48,7 +48,7 @@ function getWeather(city) {
     fetch(weatherUrl)
         .then(response => {
             if (response.ok) {
-                console.log(response + 'getWeather()');
+                console.log(response);
                 return response.json().then(data => {
                     console.log(data);
                     
@@ -71,7 +71,7 @@ function getWeather(city) {
         })
         .catch(error => {
             console.log(error.message);
-            
+            alert('Please enter a valid city!');
         });
 
 }
@@ -146,15 +146,9 @@ function displayForecast(temp, wind, humidity, icon, i) {
       // Code to clear all the html from the element
        var prevCity = JSON.parse(localStorage.getItem("city")) || [];
        prevSearchEl.innerHTML =''
-    //   var prevCity = localStorage.getItem('city');
-      // Iteration to create the whole array of search history, limited to 5 so that the website won't load too many
        for (var i = 0; i < prevCity.length; i++){
-           var cityBtn = `<div class="collection blue"> <a href="#!" id="prev-search" class="collection-item center-align white-text blue">${prevCity[i]}</a></div>`
+           var cityBtn = `<div class="collection center blue"> <a href="#!" id="prev-search" class="collection-item center white-text blue">${prevCity[i].toUpperCase()}</a></div>`
            prevSearchEl.innerHTML += cityBtn;
-
-        //    prevSearchEl.addEventListener('click', function (event) {
-        //      console.log(event.target, "event.target");
-        //     })
               
       }
       
