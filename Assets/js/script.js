@@ -7,6 +7,7 @@ var clearBtnEl = document.querySelector('#clear-btn');
 var prevSearchEl = document.querySelector('#prev-search-container');//list of previous searches
 var currentForecastEl = document.querySelector('#current-forecast-container');
 var searchHistory = JSON.parse(localStorage.getItem("city")) || [];
+var cityButton = document.querySelector('#prev-search')
 var city = citySearchEl.value;
 var fiveDayForecastEl = document.querySelector('#five-day-container');
 //Global Variables
@@ -44,7 +45,6 @@ function cityToCoordinates(city) {
 //Get the weather data from OpenWeather API
 function getWeather(city) {
     var weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
-    //Call the API
     fetch(weatherUrl)
         .then(response => {
             if (response.ok) {
@@ -147,16 +147,17 @@ function displayForecast(temp, wind, humidity, icon, i) {
        prevSearchEl.innerHTML =''
     //   var prevCity = localStorage.getItem('city');
       // Iteration to create the whole array of search history, limited to 5 so that the website won't load too many
-       for (var i = 0; i < 6; i++){
+       for (var i = 0; i < prevCity.length; i++){
         console.log('previous cities' + prevCity);
            var cityBtn = `<div class="collection blue"> <a href="#!" id="prev-search" class="collection-item center-align white-text blue">${prevCity[i]}</a></div>`
            prevSearchEl.innerHTML += cityBtn;
-           
               
       }
-      
+     
 } 
 displaySearchHistory()
+
+
 
 
 searchBtnEl.addEventListener("click", function (e) {
@@ -180,7 +181,13 @@ searchBtnEl.addEventListener("click", function (e) {
         return;
     }
 
-    // Calling function to convert city name to coordinates
+    
     cityToCoordinates(searchVal);
     // displaySearchHistory()
+})
+
+clearBtnEl.addEventListener('click', function () {
+    localStorage.clear();
+    prevSearchEl.innerHTML = '';
+
 })

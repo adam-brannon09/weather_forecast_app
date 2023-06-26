@@ -31,38 +31,43 @@
 			<h1>Weather Dashboard</h1>
 		</header>
 
-		<div class="row">
-			<!-- Form for City Seach -->
-			<form action="" class="col l3">
-				<h3>Search for a City</h3>
-				<label for="city-search">City Name</label>
-				<input id="city-search" class="input-field inline" type="text" />
-				<br />
-				<button id="search-btn" class="waves-effect waves-light btn blue">
-					Search
-				</button>
-				<button id="clear-btn" class="waves-effect waves-light btn blue">
-					Clear History
-				</button>
-			</form>
-			<!-- Container for Current Forecast -->
-			<div id="current-forecast-container" class="col l19 push-l1">
-			</div>
-		</div>
+		<!-- body -->
 
 		<div class="row">
-			<!-- Previous Searches -->
-			<div id="prev-search-container" class="col l3">
-				
-					
-				
+			<div class="col l4">
+				<!-- Form for City Seach -->
+
+				<form action="" >
+					<h3>Search for a City</h3>
+					<label for="city-search">City Name</label>
+					<input id="city-search" class="input-field inline " type="text" />
+					<button id="search-btn" class="waves-effect waves-light btn blue">
+						Search
+					</button>
+					<button id="clear-btn" class="waves-effect waves-light btn blue">
+						Clear History
+					</button>
+				</form>
+
+				<!-- Previous Searches -->
+				<div id="prev-search-container"></div>
+			</div>
+			<!-- end column -->
+			<!-- start of 2nd column -->
+			<div class="col l8 push-l1">
+				<!-- current forecast container -->
+				<div id="current-forecast-container" class="z-depth-1"></div>
+
+				<!-- Five Day Forecast -->
+				<div id="five-day-container" class="z-depth-3"></div>
+
+				<!-- end 2nd column  -->
 			</div>
 
-			<!-- Five Day Forecast -->
-			<div id="five-day-container" class="col l9 push-l1">
-				
-			</div>
+			<!-- end row -->
 		</div>
+
+		<!-- body -->
 
 		<script
 			src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -70,6 +75,7 @@
 			crossorigin="anonymous"
 		></script>
 
-		<script src="./Assets/js/script.js"></script>
+		<script src="/Assets/js/script.js"></script>
 	</body>
 </html>
+
