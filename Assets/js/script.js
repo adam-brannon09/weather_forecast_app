@@ -18,7 +18,7 @@ var date = dayjs().format('MMM D, YYYY');
 
 
 function cityToCoordinates(city) {
-    var coordinates = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
+    var coordinates = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city  + '&limit=1&appid=' + apiKey;
     fetch(coordinates)
         .then(response => {
             if (response.ok) {
@@ -48,9 +48,10 @@ function getWeather(city) {
     fetch(weatherUrl)
         .then(response => {
             if (response.ok) {
-                console.log(response);
+                console.log(response + 'getWeather()');
                 return response.json().then(data => {
                     console.log(data);
+                    
                     var temp = data.list[0].main.temp;
                     var wind = data.list[0].wind.speed;
                     var humidity = data.list[0].main.humidity;
@@ -148,14 +149,18 @@ function displayForecast(temp, wind, humidity, icon, i) {
     //   var prevCity = localStorage.getItem('city');
       // Iteration to create the whole array of search history, limited to 5 so that the website won't load too many
        for (var i = 0; i < prevCity.length; i++){
-        console.log('previous cities' + prevCity);
            var cityBtn = `<div class="collection blue"> <a href="#!" id="prev-search" class="collection-item center-align white-text blue">${prevCity[i]}</a></div>`
            prevSearchEl.innerHTML += cityBtn;
+
+        //    prevSearchEl.addEventListener('click', function (event) {
+        //      console.log(event.target, "event.target");
+        //     })
               
       }
-     
+      
 } 
 displaySearchHistory()
+
 
 
 
@@ -183,9 +188,14 @@ searchBtnEl.addEventListener("click", function (e) {
 
     
     cityToCoordinates(searchVal);
-    // displaySearchHistory()
+    displaySearchHistory()
 })
-
+//Retrieve a Previous Search
+prevSearchEl.addEventListener('click', function (event) {
+    console.log(event.target, "event.target");
+    cityToCoordinates(event.target.textContent);
+   })
+// Clear the history.
 clearBtnEl.addEventListener('click', function () {
     localStorage.clear();
     prevSearchEl.innerHTML = '';
