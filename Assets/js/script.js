@@ -1,10 +1,10 @@
 //API Elements
 var apiKey = '202feb99a1218137bb0b3c379ff2a746';
 //Page Elements
-var citySearchEl = document.querySelector('#city-search'); //user input
+var citySearchEl = document.querySelector('#city-search');
 var searchBtnEl = document.querySelector('#search-btn');
 var clearBtnEl = document.querySelector('#clear-btn');
-var prevSearchEl = document.querySelector('#prev-search-container');//list of previous searches
+var prevSearchEl = document.querySelector('#prev-search-container');
 var currentForecastEl = document.querySelector('#current-forecast-container');
 var searchHistory = JSON.parse(localStorage.getItem("city")) || [];
 var cityButton = document.querySelector('#prev-search')
@@ -16,9 +16,9 @@ var lon;
 //Dayjs to display the current date
 var date = dayjs().format('MMM D, YYYY');
 
-
+//Get the coordinates of the city
 function cityToCoordinates(city) {
-    var coordinates = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city  + '&limit=1&appid=' + apiKey;
+    var coordinates = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=' + apiKey;
     fetch(coordinates)
         .then(response => {
             if (response.ok) {
@@ -39,7 +39,7 @@ function cityToCoordinates(city) {
         .catch(err => {
             console.log(error.message);
         });
-    
+
 }
 
 //Get the weather data from OpenWeather API
@@ -51,16 +51,13 @@ function getWeather(city) {
                 console.log(response);
                 return response.json().then(data => {
                     console.log(data);
-                    
+
                     var temp = data.list[0].main.temp;
                     var wind = data.list[0].wind.speed;
                     var humidity = data.list[0].main.humidity;
                     var iconCode = data.list[0].weather[0].icon;
                     var icon = 'https://openweathermap.org/img/wn/' + iconCode + '@2x.png';
-                    
-                    // Clear HTML from the Current Forecast element
                     currentForecastEl.innerHTML = '';
-                    //Call function to retrieve data to display
                     displayWeather(temp, wind, humidity, icon, city);
                     displaySearchHistory()
                 });
@@ -79,8 +76,8 @@ function getWeather(city) {
 // Display Current Forecast 
 function displayWeather(temp, wind, humidity, icon, city) {
     currentForecastEl.innerHTML = `
-         <h4>${city.toUpperCase()}</h4>
-         <h3>${date}</h3>
+         <h3>${city.toUpperCase()}</h3>
+         <h4>${date}</h4>
          <img id="img1" src="${icon}" alt="" />
          <p>Temperature: ${temp} °F </p>
          <p>Wind Speed: ${wind} MPH</p>
@@ -91,14 +88,14 @@ function displayWeather(temp, wind, humidity, icon, city) {
 //Get the 5 day forecast data
 function getForecast() {
     var weatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=' + apiKey;
-    //Call the API
+
     fetch(weatherUrl)
         .then(response => {
             if (response.ok) {
                 console.log(response);
                 response.json().then(data => {
                     console.log(data);
-                    // Clear HTML from the Current Forecast element
+
                     fiveDayForecastEl.innerHTML = '';
 
                     for (var i = 1; i < 6; i++) {
@@ -107,8 +104,8 @@ function getForecast() {
                         var humidity = data.list[i].main.humidity;
                         var iconCode = data.list[i].weather[0].icon;
                         var icon = 'https://openweathermap.org/img/wn/' + iconCode + '@2x.png';
-                        
-                    
+
+
                         displayForecast(temp, wind, humidity, icon, i);
                     }
 
@@ -127,6 +124,7 @@ function displayForecast(temp, wind, humidity, icon, i) {
     //Retrieve date from Day JS
     var forecastDate = dayjs().add(i, 'day').format('MMM D, YYYY');
     var forecastHtml = `
+    
     <div class="card col l2 blue darken-1">
         <div id="card${i + 1}" class="card-content white-text">
             <span id="card-date${i + 1}" class="card-title">${forecastDate}</span>
@@ -141,46 +139,34 @@ function displayForecast(temp, wind, humidity, icon, i) {
 
 }
 
-//   //Function to display the buttons with the search history 
-   function displaySearchHistory() {
-      // Code to clear all the html from the element
-       var prevCity = JSON.parse(localStorage.getItem("city")) || [];
-       prevSearchEl.innerHTML =''
-       for (var i = 0; i < prevCity.length; i++){
-           var cityBtn = `<div class="collection center blue"> <a href="#!" id="prev-search" class="collection-item center white-text blue">${prevCity[i].toUpperCase()}</a></div>`
-           prevSearchEl.innerHTML += cityBtn;
-              
-      }
-      
-} 
+//Display the buttons with the search history 
+function displaySearchHistory() {
+    var prevCity = JSON.parse(localStorage.getItem("city")) || [];
+    prevSearchEl.innerHTML = ''
+    for (var i = 0; i < prevCity.length; i++) {
+        var cityBtn = `<div class="collection center blue"> <a href="#!" id="prev-search" class="collection-item center white-text blue">${prevCity[i].toUpperCase()}</a></div>`
+        prevSearchEl.innerHTML += cityBtn;
+    }
+}
 displaySearchHistory()
 
 
 
 
-
+//Search for a city
 searchBtnEl.addEventListener("click", function (e) {
     e.preventDefault();
     searchHistory = JSON.parse(localStorage.getItem("city")) || [];
-
-    // To get the value from the input the user gives
     var searchVal = citySearchEl.value.trim();
-    // Add the most recent search to the beginning of the array
     searchHistory.unshift(searchVal);
-
-    //To save the array to the local storage
     localStorage.setItem("city", JSON.stringify(searchHistory));
-    
 
-
-    // If user doesn't input anything this alert will apply
     if (!searchVal) {
         console.error('You need a search input value!');
         alert('Please enter a city!')
         return;
     }
 
-    
     cityToCoordinates(searchVal);
     displaySearchHistory()
 })
@@ -188,7 +174,7 @@ searchBtnEl.addEventListener("click", function (e) {
 prevSearchEl.addEventListener('click', function (event) {
     console.log(event.target, "event.target");
     cityToCoordinates(event.target.textContent);
-   })
+})
 // Clear the history.
 clearBtnEl.addEventListener('click', function () {
     localStorage.clear();
