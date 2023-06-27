@@ -10,7 +10,7 @@
 
 Welcome to the Weather Dashboard App! This intuitive and user-friendly application is designed to provide you with up-to-date weather information for any location. With its sleek interface and powerful features, you can effortlessly access the current forecast, a detailed 5-day forecast, and conveniently keep track of your recent city searches.
 
-![Project Logo](/assets/weather_dashboard.png)
+![dashboard](/Assets/weather_dashboard.png)
 ## Features
 
 - **Current Forecast:** 
